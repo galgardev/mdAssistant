@@ -1,0 +1,9 @@
+#code-editor {
+  margin-top: 7rem;
+  height: calc(100vh - 8rem);
+  width: 100%;
+}
+
+#code-editor .margin {
+    margin: 0 !important;
+  }
