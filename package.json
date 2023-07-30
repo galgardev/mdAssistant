@@ -12,5 +12,10 @@
     "@sveltejs/vite-plugin-svelte": "^2.4.2",
     "svelte": "^4.0.5",
     "vite": "^4.4.5"
+  },
+  "dependencies": {
+    "beercss": "^3.2.13",
+    "marked": "^5.1.2",
+    "monaco-editor": "^0.40.0"
   }
 }
