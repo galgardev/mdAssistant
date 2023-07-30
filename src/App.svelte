@@ -1,66 +1,47 @@
-<!-- src\App.svelte -->
 <script>
-  // Import necessary libraries
-  import { onMount, onDestroy } from "svelte";
+  import { onMount } from "svelte";
   import * as monaco from "monaco-editor";
   import { marked } from "marked";
 
   // Initialize editor and markdown content
   let editor;
-  let markdownContent = "# Hola mundo. Esto es una prueba.";
+  let editorContent = "# Hola mundo.";
 
   // Monaco Editor options
   const editorOptions = {
-    value: markdownContent,
+    value: editorContent,
     language: "markdown",
     theme: "vs-dark",
     automaticLayout: true,
   };
 
   // Function to render markdown to HTML
-  function renderMarkdown() {
-    const renderedHTML = marked(markdownContent);
-    return renderedHTML;
+  let renderedHTML = marked(editorContent);
+
+  function updatePreview() {
+    renderedHTML = marked(editorContent);
   }
 
-  // Lifecycle hooks to handle editor setup and destruction
+  // Hook to handle editor setup and changes
   onMount(() => {
     editor = monaco.editor.create(
-      document.getElementById("monacoEditor"),
+      document.getElementById("code-editor"),
       editorOptions
     );
 
     editor.onDidChangeModelContent(() => {
-      markdownContent = editor.getValue();
+      editorContent = editor.getValue();
+      updatePreview();
     });
-  });
-
-  onDestroy(() => {
-    if (editor) {
-      editor.dispose();
-    }
   });
 </script>
 
 <main>
-  <h1>Hola mundo</h1>
-  <div class="editor-container">
-    <div id="monacoEditor" style="height: 400px; width: 50%;" />
-    <div class="markdown-preview" style="height: 400px; width: 50%;">
-      {@html renderMarkdown()}
-    </div>
+  <div id="code-editor" style="height: 400px; width: 50%;" />
+  <div id="previewer" style="height: 400px; width: 50%;">
+    {@html renderedHTML}
   </div>
 </main>
 
 <style>
-  .editor-container {
-    display: flex;
-    gap: 10px;
-  }
-
-  .markdown-preview {
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    padding: 10px;
-  }
 </style>
