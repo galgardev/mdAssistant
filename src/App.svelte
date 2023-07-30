@@ -3,42 +3,57 @@
   import * as monaco from "monaco-editor";
   import { marked } from "marked";
 
-  // Initialize editor and markdown content
-  let editor;
-  let editorContent = "# Hola mundo.";
+  let editorInstance;
+  let editorContent = "";
+  let renderedHTML = "";
 
-  // Monaco Editor options
+  // Opciones del editor
   const editorOptions = {
-    value: editorContent,
     language: "markdown",
     theme: "vs-dark",
     automaticLayout: true,
   };
 
-  // Function to render markdown to HTML
-  let renderedHTML = marked(editorContent);
-
-  function updatePreview() {
-    renderedHTML = marked(editorContent);
+  // Obtiene la plantilla de Markdown e inicializa el editor
+  async function fetchMarkdownTemplate() {
+    const response = await fetch("src/assets/markdown-example.md");
+    editorContent = await response.text();
+    editorOptions.value = editorContent;
+    updateRenderedHTML();
   }
 
-  // Hook to handle editor setup and changes
-  onMount(() => {
-    editor = monaco.editor.create(
+  // Configura el editor
+  function initializeEditor() {
+    editorInstance = monaco.editor.create(
       document.getElementById("code-editor"),
       editorOptions
     );
 
-    editor.onDidChangeModelContent(() => {
-      editorContent = editor.getValue();
-      updatePreview();
-    });
-  });
+    editorInstance.onDidChangeModelContent(
+      // Detecta cambios en el editor y llama a la función que actualiza el renderizado
+      function onEditorContentChange() {
+        editorContent = editorInstance.getValue();
+        updateRenderedHTML();
+      }
+    );
+  }
+
+  // Actualiza el HTML renderizado
+  function updateRenderedHTML() {
+    renderedHTML = marked(editorContent);
+  }
+
+  // Se ejecuta al montar el componente para obtener la plantilla e inicializar el editor
+  function onMountHandler() {
+    fetchMarkdownTemplate().then(initializeEditor);
+  }
+
+  onMount(onMountHandler);
 </script>
 
 <main>
-  <div id="code-editor" style="height: 400px; width: 50%;" />
-  <div id="previewer" style="height: 400px; width: 50%;">
+  <div id="code-editor" style="height: 100vh; width: 50%; float: left;" />
+  <div id="render" style="height: auto; width: 50%; float: left;">
     {@html renderedHTML}
   </div>
 </main>
