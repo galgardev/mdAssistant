@@ -6,7 +6,7 @@
 
 <nav class="top">
   <button
-    class="circle extra transparent s m l small-margin"
+    class="circle large transparent s m l small-margin"
     data-ui="#dialog-expanded"><i>menu</i></button
   >
 
@@ -15,7 +15,7 @@
   </a>
 
   <div class="max" />
-  <button class="transparent extra circle">
+  <button class="transparent large circle">
     <i>light_mode</i>
   </button>
 </nav>
@@ -29,13 +29,8 @@
   }
 
   nav a {
-    margin-right: 0.8rem !important;
     min-width: auto;
     width: auto;
-  }
-
-  nav a:hover {
-    text-decoration: underline;
   }
 
   nav .logo {
@@ -45,13 +40,7 @@
 
   @media only screen and (min-width: 993px) {
     nav {
-      padding: 1.4rem 2rem;
-    }
-  }
-
-  @media only screen and (max-width: 992px) {
-    .nav-link {
-      display: none !important;
+      padding: 1rem 2rem;
     }
   }
 </style>
