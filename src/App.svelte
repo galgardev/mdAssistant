@@ -12,6 +12,21 @@
     language: "markdown",
     theme: "vs-dark",
     automaticLayout: true,
+    wordWrap: "on",
+    fontFamily: "Courier New",
+    fontSize: 16,
+    lineNumbers: "on",
+    folding: false,
+    minimap: {
+      enabled: false,
+    },
+    scrollbar: {
+      vertical: "visible",
+      horizontal: "hidden",
+      verticalHasArrows: false,
+      horizontalHasArrows: false,
+      verticalScrollbarSize: 14,
+    },
   };
 
   // Obtiene la plantilla de Markdown e inicializa el editor
