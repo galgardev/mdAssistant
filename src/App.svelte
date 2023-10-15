@@ -1,3 +1,4 @@
+<!-- src/App.svelte -->
 <script>
   import "beercss";
   import Nav from "./components/Nav.svelte";

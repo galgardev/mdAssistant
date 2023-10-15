@@ -1,3 +1,4 @@
+<!-- src/components/Editor.svelte -->
 <script>
   import { onMount } from "svelte";
   import * as monaco from "monaco-editor";
@@ -28,6 +29,11 @@
       verticalHasArrows: false,
       horizontalHasArrows: false,
       verticalScrollbarSize: 14,
+    },
+    suggest: {
+      showWords: false,
+      showClasses: false,
+      showVariables: false,
     },
   };
 
